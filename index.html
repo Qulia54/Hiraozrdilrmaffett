@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beni Affet ❤️</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:#5c0000;
+    font-family:Arial, Helvetica, sans-serif;
+    text-align:center;
+    overflow:hidden;
+}
+
+.neon{
+    color:#fff;
+    text-shadow:
+    0 0 5px #fff,
+    0 0 10px #ff4d6d,
+    0 0 20px #ff1a4d,
+    0 0 40px #ff1a4d;
+}
+
+h1{
+    font-size:34px;
+    z-index:2;
+}
+
+.shake{
+    animation:shake 0.5s infinite;
+}
+
+@keyframes shake{
+    0%{transform:translate(0,0);}
+    25%{transform:translate(4px,-4px);}
+    50%{transform:translate(-4px,4px);}
+    75%{transform:translate(4px,4px);}
+    100%{transform:translate(-4px,-4px);}
+}
+
+.buttons{
+    margin-top:20px;
+    position:relative;
+    width:250px;
+    height:80px;
+}
+
+button{
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    transition:0.3s;
+    color:white;
+    font-weight:bold;
+    position:absolute;
+}
+
+#yes{
+    background:#00c853;
+    left:0;
+    box-shadow:0 0 20px #00ff88;
+}
+
+#no{
+    background:#000;
+    right:0;
+}
+
+.footer{
+    position:absolute;
+    bottom:10px;
+    font-size:14px;
+    color:white;
+    opacity:0.8;
+}
+
+.fall{
+    position:fixed;
+    top:-40px;
+    pointer-events:none;
+    animation:fallRotate linear forwards;
+}
+
+@keyframes fallRotate{
+    0%{
+        transform:translateY(0) rotate(0deg);
+        opacity:1;
+    }
+    100%{
+        transform:translateY(110vh) rotate(720deg);
+        opacity:0;
+    }
+}
+</style>
+</head>
+<body>
+
+<h1 id="text" class="neon">Özürrr dilerğmm affett 😞😞</h1>
+
+<div class="buttons">
+    <button id="yes">Evet</button>
+    <button id="no">Hayır</button>
+</div>
+
+<div class="footer">✨ Made with love by Ayberk 🫶</div>
+
+<audio id="music" src="./agir-roman.mp3"></audio>
+
+<script>
+let noBtn = document.getElementById("no");
+let yesBtn = document.getElementById("yes");
+let text = document.getElementById("text");
+let music = document.getElementById("music");
+
+let noCount = 0;
+let rainStarted = false;
+
+/* HAYIR BUTONU */
+noBtn.addEventListener("click", function() {
+    noCount++;
+
+    if(noCount === 3){
+        text.innerHTML = "LÜTFENN 😫🙏";
+    }
+
+    if(noCount === 5){
+        yesBtn.style.fontSize = "70px";
+        yesBtn.style.padding = "30px 80px";
+    }
+
+    if(noCount === 6){
+        noBtn.style.display = "none";
+    } else {
+        moveNearby();
+    }
+});
+
+function moveNearby(){
+    let x = Math.random() * 150;
+    let y = Math.random() * 40;
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+/* EVET BUTONU */
+yesBtn.addEventListener("click", function() {
+
+    if(rainStarted) return; 
+    rainStarted = true;
+
+    text.innerHTML = "Yasenbitanesinnyaa ❤️‍🔥🫶";
+    text.classList.add("shake");
+
+    noBtn.style.display = "none";
+	
+
+    yesBtn.style.display = "none"; 
+
+
+    yesBtn.disabled = true; 
+
+    music.play();
+
+    setInterval(startLoveRain, 120);
+});
+
+function startLoveRain(){
+    createFalling("❤️");
+    createFalling("💖");
+    createFalling("🎉");
+    createFalling("H");
+}
+
+function createFalling(symbol){
+    let el = document.createElement("div");
+    el.classList.add("fall");
+    el.innerHTML = symbol;
+
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.fontSize = (Math.random() * 30 + 25) + "px";
+    el.style.animationDuration = (Math.random() * 2 + 3) + "s";
+
+    document.body.appendChild(el);
+
+    setTimeout(() => {
+        el.remove();
+    }, 5000);
+}
+</script>
+
+</body>
+</html>
